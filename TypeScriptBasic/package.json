@@ -1,0 +1,23 @@
+{
+  "name": "ts-basic",
+  "version": "1.0.0",
+  "description": "typescript basic",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "start": "webpack-cli serve --mode development",
+    "develop": "webpack-dev-server --mode development"
+  },
+  "author": "ngan",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jquery": "^3.5.30",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
+  },
+  "dependencies": {
+    "jquery": "^3.7.1"
+  }
+}
