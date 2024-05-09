@@ -1,4 +1,5 @@
 const TerserPlugin = require("terser-webpack-plugin");
+// var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const path = require("path");
 
@@ -42,9 +43,30 @@ module.exports = {
     ],
   },
   optimization: {
+    minimize: true,
     minimizer: [new TerserPlugin()],
+    runtimeChunk: 'single',
+    splitChunks: {
+        cacheGroups: {
+            vendor: {
+                test: /[\\/]node_modules[\\/]/,
+                name: 'vendors',
+                enforce: true,
+                chunks: 'all'
+            }
+        }
+    }
   },
   externals: {
       jquery: 'jQuery', // Specify jQuery as an external dependency
   },
+
+  plugins: [
+    //for view what is inside a bundle
+    // new BundleAnalyzerPlugin({ 
+    //     analyzerMode: 'static'
+    // }),
+
+    
+  ],
 };

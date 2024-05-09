@@ -13,6 +13,7 @@ export class TodoRepo {
 		this.todoList.unshift(todo);
 		// console.log('ADDDD TODO');
 		
+		//add new todo for data hahahaha
 		return todo;
 	}
 

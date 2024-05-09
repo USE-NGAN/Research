@@ -1,8 +1,8 @@
-import jquery = require("jquery");
-
+// import jquery = require("jquery");
+const { v4: uuidv4 } = require('uuid');
 import { TodoRepo } from "./core/datas/todoRepo";
 // this helps TypeScript to understand jQuery best !!!  otherwise It will confused .
-const $: JQueryStatic = jquery;
+// const $: JQueryStatic = jquery;
 
 export class Application {
 	private todoRepo = new TodoRepo();
@@ -16,7 +16,9 @@ export class Application {
 	
 	this.addTodo("TITLE","DESC");
 	this.addTodo("TITLE2","DESC2");
-
+	let v4 = uuidv4();
+	console.log(`UUID = ${v4}`);
+	
   }
 
   addTodo(title: string, desc: string){
@@ -27,6 +29,6 @@ export class Application {
 
 $(document).ready(function () {
   // jQuery methods go here...
-  console.log('APP BEGIN');
+  console.log('APP BEGIN 2');
 	Application.app.initApp();
 });
