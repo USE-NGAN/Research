@@ -1,34 +1,49 @@
 // import jquery = require("jquery");
-const { v4: uuidv4 } = require('uuid');
-import { TodoRepo } from "./core/datas/todoRepo";
+const { v4: uuidv4 } = require("uuid");
+import { FUNC_LOG } from "utilities/zLog";
+// import { FUNC_LOG } from "./utilities/zLog";
+// import { getFuncName } from "./utilities/zLog";
+import { TodoRepo } from "core/datas/todoRepo";
 // this helps TypeScript to understand jQuery best !!!  otherwise It will confused .
 // const $: JQueryStatic = jquery;
 
-export class Application {
-	private todoRepo = new TodoRepo();
 
-	static app = new Application();
+export class Application {
+  private todoRepo = new TodoRepo();
+
+  static app = new Application();
 
   constructor() {}
 
-  initApp(){
-	console.log('INIT APP');
-	
-	this.addTodo("TITLE","DESC");
-	this.addTodo("TITLE2","DESC2");
-	let v4 = uuidv4();
-	console.log(`UUID = ${v4}`);
-	
+  //   @named
+  initApp() {
+    FUNC_LOG();
+
+    this.addTodo("TITLE", "DESC");
+    this.addTodo("TITLE2", "DESC2");
+    let v4 = uuidv4();
+    // console.log(`UUID = ${v4}`);
+    // console.log(chalk.red(`UUID = ${v4}`))
   }
 
-  addTodo(title: string, desc: string){
-	const todo = this.todoRepo.addTodo(title, desc);
-	$("#content").append("<br>Added "+todo.toString());
+  addTodo(title: string, desc: string) {
+    const todo = this.todoRepo.addTodo(title, desc);
+    $("#content").append("<br>Added " + todo.toString());
+  }
+
+  renderTodo(){
+    FUNC_LOG();
+
+    this.todoRepo.printTodo();
   }
 }
 
 $(document).ready(function () {
   // jQuery methods go here...
-  console.log('APP BEGIN 2');
-	Application.app.initApp();
+  console.log("APP BEGIN");
+  Application.app.initApp();
+
+  $("#btnTest").on("click", function () {
+    Application.app.renderTodo();
+  })
 });

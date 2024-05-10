@@ -1,3 +1,5 @@
+import { FUNC_LOG } from "utilities/zLog";
+
 export class Todo {
 	id: string;
 	title: string;
@@ -18,6 +20,8 @@ export class Todo {
 	}
   
 	generateId(): string {
+		FUNC_LOG();
+
 	  // Generate a unique identifier for each Todo instance
 	  let val = Todo.globalID;
 	  Todo.globalID++;

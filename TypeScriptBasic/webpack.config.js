@@ -1,4 +1,5 @@
 const TerserPlugin = require("terser-webpack-plugin");
+
 // var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const path = require("path");
@@ -23,6 +24,7 @@ module.exports = {
   // 例...「import World from './world'」と記述すると"world.ts"という名前のファイルをモジュールとして探す
   resolve: {
     extensions: [".ts", ".js"], // Reactの.tsxや.jsxの拡張子も扱いたい場合は配列内に追加する
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
   },
   devServer: {
     static: {
@@ -63,9 +65,7 @@ module.exports = {
 
   plugins: [
     //for view what is inside a bundle
-    // new BundleAnalyzerPlugin({ 
-    //     analyzerMode: 'static'
-    // }),
+    // new BundleAnalyzerPlugin({analyzerMode: 'static'}),
 
     
   ],

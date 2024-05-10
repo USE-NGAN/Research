@@ -1,4 +1,5 @@
-import { Todo } from "../entities/todoItem";
+import { Todo } from "core/entities/todoItem";
+import { FUNC_LOG } from "utilities/zLog";
 
 export class TodoRepo {
 
@@ -9,15 +10,17 @@ export class TodoRepo {
 	}
 
 	addTodo(title: string, description?: string): Todo {
+		FUNC_LOG();
+		
 		const todo = new Todo(title, description);
 		this.todoList.unshift(todo);
-		// console.log('ADDDD TODO');
 		
 		//add new todo for data hahahaha
 		return todo;
 	}
 
 	printTodo(){
+		FUNC_LOG();
 		for (let index = 0; index < this.todoList.length; index++) {
 			const element = this.todoList[index];
 			console.log(element.toString());
