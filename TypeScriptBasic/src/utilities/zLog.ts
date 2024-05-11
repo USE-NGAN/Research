@@ -27,7 +27,7 @@ function getName(d:number) : string{
 	if (idxOfPathent == -1) {
 		return "";
 	}
-	return res.substring(2, idxOfPathent);
+	return res.substring(0, idxOfPathent);
   }
 
   export function FUNC_LOG() {

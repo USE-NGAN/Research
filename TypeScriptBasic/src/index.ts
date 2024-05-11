@@ -37,11 +37,14 @@ export class Application {
     this.todoRepo.printTodo();
   }
 }
-
 $(document).ready(function () {
   // jQuery methods go here...
   console.log("APP BEGIN");
   Application.app.initApp();
+
+  if (_DEBUG_) {
+    console.warn('Extra logging');
+  }
 
   $("#btnTest").on("click", function () {
     console.log("BTN CLICKED");
