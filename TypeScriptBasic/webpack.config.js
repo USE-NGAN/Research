@@ -24,7 +24,7 @@ module.exports = {
   // 例...「import World from './world'」と記述すると"world.ts"という名前のファイルをモジュールとして探す
   resolve: {
     extensions: [".ts", ".js"], // Reactの.tsxや.jsxの拡張子も扱いたい場合は配列内に追加する
-    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'], //to use relative path from ROOT. no need to add ../ in import
   },
   devServer: {
     static: {
