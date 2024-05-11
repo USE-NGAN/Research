@@ -44,6 +44,7 @@ $(document).ready(function () {
   Application.app.initApp();
 
   $("#btnTest").on("click", function () {
+    console.log("BTN CLICKED");
     Application.app.renderTodo();
   })
 });

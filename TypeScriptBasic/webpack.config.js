@@ -1,4 +1,10 @@
+// Reposite for source code is private
+// Reposite for release is public
+// Let build source code to public then, we can commit it
+const OUTPUT_PATH = "/Users/nganphanthanh/Documents/01_AREA/00_REPOSITORY/Research/Deploy/";
+
 const TerserPlugin = require("terser-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');//for copy index.html to OUTPUT_PATH
 
 // var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -17,8 +23,9 @@ module.exports = {
   },
   // モジュールバンドルを行った結果を出力する場所やファイル名の指定
   output: {
-    path: path.join(__dirname, "dist"), // "__dirname"はファイルが存在するディレクトリ
-    filename: "[name].js", // [name]はentryで記述した名前（この設定ならhello.js）
+    // path: path.join(__dirname, "dist"), // "__dirname"はファイルが存在するディレクトリ
+    path: OUTPUT_PATH, 
+    filename: "[name].[contenthash].js", // [name]はentryで記述した名前（この設定ならhello.js）
   },
   // import文でファイル拡張子を書かずに名前解決するための設定
   // 例...「import World from './world'」と記述すると"world.ts"という名前のファイルをモジュールとして探す
@@ -48,7 +55,12 @@ module.exports = {
     minimize: true,
     minimizer: [new TerserPlugin()],
     runtimeChunk: 'single',
-    splitChunks: {
+
+    /* Use  splitChunks to move library code in node_modules to vendors.js
+    https://webpack.js.org/guides/caching/#extracting-boilerplate
+    https://webpack.js.org/guides/code-splitting/
+    */
+    splitChunks: { 
         cacheGroups: {
             vendor: {
                 test: /[\\/]node_modules[\\/]/,
@@ -57,7 +69,14 @@ module.exports = {
                 chunks: 'all'
             }
         }
-    }
+    },
+
+    /* 
+    We are using splitChunks to create vendors.js for external library.
+    We also are using [contenthash] in the file name -> when build, vendors.hash.js will change too.
+    -> We only want hello.js changed, vendors should not be re-created
+    */
+    moduleIds: 'deterministic', 
   },
   externals: {
       jquery: 'jQuery', // Specify jQuery as an external dependency
@@ -66,7 +85,10 @@ module.exports = {
   plugins: [
     //for view what is inside a bundle
     // new BundleAnalyzerPlugin({analyzerMode: 'static'}),
-
+    new HtmlWebpackPlugin({
+      //テンプレートに使用するhtmlファイルを指定
+      template: 'src/index.html'
+  })
     
   ],
 };
