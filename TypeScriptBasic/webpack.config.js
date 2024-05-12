@@ -6,15 +6,20 @@ const HtmlWebpackPlugin = require("html-webpack-plugin"); //for copy index.html 
 /* =======================DEV PLUGINS========================== */
 
 /* =======================CONFIGURATION========================== */
+const isRelease = process.env.buildMode === "RELEASE";
 const WebPackSetting = {
-  IS_DEBUG_MODE: true, //to use _DEBUG_ in typescript
+  IS_DEBUG_MODE: !isRelease, //to use _DEBUG_ in typescript
   VERSION: "0.0.1",
   DISABLE_CACHE_JS: true, //prevent cache js file by browser, by adding a.js?v=hash in script
 
   OUTPUT_PATH:
-    // "/Users/nganphanthanh/Documents/01_AREA/00_REPOSITORY/Research/Deploy/",
+    // "/Users/nganphanthanh/Documents/01_AREA/00_REPOSITORY/Research/Deploy/",//absolute path ok
     path.join(__dirname, "dist"),
 };
+
+console.log("===============\n");
+console.log("BUILD INFO: DEBUG = "+WebPackSetting.IS_DEBUG_MODE);
+console.log("===============\n");
 
 const HTML_TITLE = WebPackSetting.IS_DEBUG_MODE
   ? "D426  Web Midi 🤯🤯🤯 [DEBUG MODE]"
@@ -30,6 +35,7 @@ const webpack = require("webpack");
 
 const definePlugin = new webpack.DefinePlugin({
   _DEBUG_: JSON.stringify(WebPackSetting.IS_DEBUG_MODE),
+  _APP_VERSION_: JSON.stringify(WebPackSetting.VERSION),
 });
 
 module.exports = {

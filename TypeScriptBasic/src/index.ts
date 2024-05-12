@@ -40,6 +40,8 @@ export class Application {
 $(document).ready(function () {
   // jQuery methods go here...
   console.log("APP BEGIN");
+  console.log("VERSION: "+_APP_VERSION_);
+  
   Application.app.initApp();
 
   if (_DEBUG_) {

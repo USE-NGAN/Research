@@ -4,8 +4,9 @@
   "description": "typescript basic",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production",
-    "dev": "webpack-dev-server --mode development"
+    "release": "buildMode=RELEASE webpack --mode production",
+    "test": "buildMode=DEBUG webpack --mode production",
+    "live": "webpack-dev-server --mode development"
   },
   "author": "ngan",
   "license": "ISC",
