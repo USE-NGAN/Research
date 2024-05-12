@@ -1,1 +1,0 @@
-{"version":3,"file":"js/abcdefgh.js?v=4f713b3189ffd365129e","mappings":";;;;;;;;;;AAAA,MAAa,IAAI;IAChB;IAEA,CAAC;CACD;AAJD,iCAIC","sources":["webpack://ts-basic/./src/pages/abcde.ts"],"sourcesContent":["export class ABCD {\n\tconstructor() {\n\t\t\n\t}\n}"],"names":[],"sourceRoot":""}
