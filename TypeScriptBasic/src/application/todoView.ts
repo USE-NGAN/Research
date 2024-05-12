@@ -1,4 +1,4 @@
-import { TodoRepo } from "core/datas/todoRepo";
+import { TodoRepo } from "application/core/datas/todoRepo";
 
 export class TodoView {
 

@@ -1,14 +1,14 @@
 "use strict";
-(self["webpackChunkts_basic"] = self["webpackChunkts_basic"] || []).push([[753],{
+(self["webpackChunkts_basic"] = self["webpackChunkts_basic"] || []).push([[57],{
 
-/***/ 650:
+/***/ 575:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TodoRepo = void 0;
-const todoItem_1 = __webpack_require__(853);
-const zLog_1 = __webpack_require__(83);
+const todoItem_1 = __webpack_require__(805);
+const zLog_1 = __webpack_require__(916);
 class TodoRepo {
     constructor() {
         this.todoList = [];
@@ -33,13 +33,13 @@ exports.TodoRepo = TodoRepo;
 
 /***/ }),
 
-/***/ 853:
+/***/ 805:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Todo = void 0;
-const zLog_1 = __webpack_require__(83);
+const zLog_1 = __webpack_require__(916);
 class Todo {
     constructor(title, description) {
         this.id = this.generateId();
@@ -74,62 +74,7 @@ Todo.globalID = 0;
 
 /***/ }),
 
-/***/ 156:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-var __webpack_unused_export__;
-
-__webpack_unused_export__ = ({ value: true });
-__webpack_unused_export__ = void 0;
-// import jquery = require("jquery");
-const { v4: uuidv4 } = __webpack_require__(831);
-const zLog_1 = __webpack_require__(83);
-// import { FUNC_LOG } from "./utilities/zLog";
-// import { getFuncName } from "./utilities/zLog";
-const todoRepo_1 = __webpack_require__(650);
-// this helps TypeScript to understand jQuery best !!!  otherwise It will confused .
-// const $: JQueryStatic = jquery;
-class Application {
-    constructor() {
-        this.todoRepo = new todoRepo_1.TodoRepo();
-    }
-    //   @named
-    initApp() {
-        (0, zLog_1.FUNC_LOG)();
-        this.addTodo("TITLE", "DESC");
-        this.addTodo("TITLE2", "DESC2");
-        let v4 = uuidv4();
-        // console.log(`UUID = ${v4}`);
-        // console.log(chalk.red(`UUID = ${v4}`))
-    }
-    addTodo(title, desc) {
-        const todo = this.todoRepo.addTodo(title, desc);
-        $("#content").append("<br>Added " + todo.toString());
-    }
-    renderTodo() {
-        (0, zLog_1.FUNC_LOG)();
-        this.todoRepo.printTodo();
-    }
-}
-__webpack_unused_export__ = Application;
-Application.app = new Application();
-$(document).ready(function () {
-    // jQuery methods go here...
-    console.log("APP BEGIN");
-    Application.app.initApp();
-    if (true) {
-        console.warn('Extra logging');
-    }
-    $("#btnTest").on("click", function () {
-        console.log("BTN CLICKED");
-        Application.app.renderTodo();
-    });
-});
-
-
-/***/ }),
-
-/***/ 83:
+/***/ 916:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -165,6 +110,61 @@ function FUNC_LOG() {
 exports.FUNC_LOG = FUNC_LOG;
 
 
+/***/ }),
+
+/***/ 156:
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+var __webpack_unused_export__;
+
+__webpack_unused_export__ = ({ value: true });
+__webpack_unused_export__ = void 0;
+// import jquery = require("jquery");
+const { v4: uuidv4 } = __webpack_require__(831);
+const zLog_1 = __webpack_require__(916);
+// import { FUNC_LOG } from "./utilities/zLog";
+// import { getFuncName } from "./utilities/zLog";
+const todoRepo_1 = __webpack_require__(575);
+// this helps TypeScript to understand jQuery best !!!  otherwise It will confused .
+// const $: JQueryStatic = jquery;
+class Application {
+    constructor() {
+        this.todoRepo = new todoRepo_1.TodoRepo();
+    }
+    //   @named
+    initApp() {
+        (0, zLog_1.FUNC_LOG)();
+        this.addTodo("TITLE", "DESC");
+        this.addTodo("TITLE2", "DESC2");
+        let v4 = uuidv4();
+        console.log(`UUID = ${v4}`);
+        // console.log(chalk.red(`UUID = ${v4}`))
+    }
+    addTodo(title, desc) {
+        const todo = this.todoRepo.addTodo(title, desc);
+        $("#content").append("<br>Added " + todo.toString());
+    }
+    renderTodo() {
+        (0, zLog_1.FUNC_LOG)();
+        this.todoRepo.printTodo();
+    }
+}
+__webpack_unused_export__ = Application;
+Application.app = new Application();
+$(document).ready(function () {
+    // jQuery methods go here...
+    console.log("APP BEGIN");
+    Application.app.initApp();
+    if (true) {
+        console.warn('Extra logging');
+    }
+    $("#btnTest").on("click", function () {
+        console.log("BTN CLICKED");
+        Application.app.renderTodo();
+    });
+});
+
+
 /***/ })
 
 },
@@ -174,4 +174,4 @@ exports.FUNC_LOG = FUNC_LOG;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=hello.0d07e85b36398d414f03.js.map
+//# sourceMappingURL=index.js.map?v=75ddece1ecc2566814ee

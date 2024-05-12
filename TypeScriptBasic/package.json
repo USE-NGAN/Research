@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack-cli serve --mode development",
-    "develop": "webpack-dev-server --mode development"
+    "dev": "webpack-dev-server --mode development"
   },
   "author": "ngan",
   "license": "ISC",
@@ -20,7 +19,6 @@
     "webpack-dev-server": "^5.0.4"
   },
   "dependencies": {
-    "chalk": "^5.3.0",
     "jquery": "^3.7.1",
     "uuid": "^9.0.1"
   }

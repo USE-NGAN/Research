@@ -1,4 +1,4 @@
-import { FUNC_LOG } from "utilities/zLog";
+import { FUNC_LOG } from "application/utilities/zLog";
 
 export class Todo {
 	id: string;

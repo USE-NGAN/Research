@@ -1,5 +1,5 @@
-import { Todo } from "core/entities/todoItem";
-import { FUNC_LOG } from "utilities/zLog";
+import { Todo } from "application/core/entities/todoItem";
+import { FUNC_LOG } from "application/utilities/zLog";
 
 export class TodoRepo {
 

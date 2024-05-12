@@ -1,9 +1,9 @@
 // import jquery = require("jquery");
 const { v4: uuidv4 } = require("uuid");
-import { FUNC_LOG } from "utilities/zLog";
+import { FUNC_LOG } from "application/utilities/zLog";
 // import { FUNC_LOG } from "./utilities/zLog";
 // import { getFuncName } from "./utilities/zLog";
-import { TodoRepo } from "core/datas/todoRepo";
+import { TodoRepo } from "application/core/datas/todoRepo";
 // this helps TypeScript to understand jQuery best !!!  otherwise It will confused .
 // const $: JQueryStatic = jquery;
 
@@ -22,7 +22,7 @@ export class Application {
     this.addTodo("TITLE", "DESC");
     this.addTodo("TITLE2", "DESC2");
     let v4 = uuidv4();
-    // console.log(`UUID = ${v4}`);
+    console.log(`UUID = ${v4}`);
     // console.log(chalk.red(`UUID = ${v4}`))
   }
 
