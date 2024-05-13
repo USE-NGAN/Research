@@ -1,55 +1,53 @@
-// import jquery = require("jquery");
-const { v4: uuidv4 } = require("uuid");
 import { FUNC_LOG } from "application/utilities/zLog";
-// import { FUNC_LOG } from "./utilities/zLog";
-// import { getFuncName } from "./utilities/zLog";
-import { TodoRepo } from "application/core/datas/todoRepo";
-// this helps TypeScript to understand jQuery best !!!  otherwise It will confused .
-// const $: JQueryStatic = jquery;
-
+import { TodoViewController } from "application/views/todo/todoViewController";
+import { TodoCompletedViewController } from "application/views/todoCompleted/todoCompletedViewController";
 
 export class Application {
-  private todoRepo = new TodoRepo();
-
   static app = new Application();
+
+  todoVC = new TodoViewController();
+  todoCompletedVC = new TodoCompletedViewController();
 
   constructor() {}
 
-  //   @named
+  //INIT APP
   initApp() {
     FUNC_LOG();
 
-    this.addTodo("TITLE", "DESC");
-    this.addTodo("TITLE2", "DESC2");
-    let v4 = uuidv4();
-    console.log(`UUID = ${v4}`);
-    // console.log(chalk.red(`UUID = ${v4}`))
+    this._initUIEvent();
+    this.todoVC.viewDidLoaded();
+    this.todoCompletedVC.viewDidLoaded();
   }
 
-  addTodo(title: string, desc: string) {
-    const todo = this.todoRepo.addTodo(title, desc);
-    $("#content").append("<br>Added " + todo.toString());
+  private _initUIEvent() {
+    //use () => { due to scope of "this"
+    $("#btnTest").on("click", () => {
+      this._onBtnTest_Clicked();
+    });
   }
 
-  renderTodo(){
-    FUNC_LOG();
+  //UI EVENT
+  private _onBtnTest_Clicked() {
+    console.log("BTN CLICKED");
 
-    this.todoRepo.printTodo();
+    try {
+      // this.dummy222();
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("EXCEPTION !!! " + error.message);
+      }
+    }
   }
+
+  // dummy222() {
+  //   console.log("DUUUUDUDU");
+  //   throw new Error("OMG");
+  // }
 }
 $(document).ready(function () {
   // jQuery methods go here...
-  console.log("APP BEGIN");
-  console.log("VERSION: "+_APP_VERSION_);
-  
+  console.log("****************APP BEGIN****************");
+  console.log("****************VERSION: " + _APP_VERSION_ + "****************");
+
   Application.app.initApp();
-
-  if (_DEBUG_) {
-    console.warn('Extra logging');
-  }
-
-  $("#btnTest").on("click", function () {
-    console.log("BTN CLICKED");
-    Application.app.renderTodo();
-  })
 });

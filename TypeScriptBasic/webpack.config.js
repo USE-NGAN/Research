@@ -11,14 +11,13 @@ const WebPackSetting = {
   IS_DEBUG_MODE: !isRelease, //to use _DEBUG_ in typescript
   VERSION: "0.0.1",
   DISABLE_CACHE_JS: true, //prevent cache js file by browser, by adding a.js?v=hash in script
-
   OUTPUT_PATH:
     // "/Users/nganphanthanh/Documents/01_AREA/00_REPOSITORY/Research/Deploy/",//absolute path ok
     path.join(__dirname, "dist"),
 };
 
 console.log("===============\n");
-console.log("BUILD INFO: DEBUG = "+WebPackSetting.IS_DEBUG_MODE);
+console.log("BUILD INFO: DEBUG = " + WebPackSetting.IS_DEBUG_MODE);
 console.log("===============\n");
 
 const HTML_TITLE = WebPackSetting.IS_DEBUG_MODE
@@ -28,7 +27,31 @@ const HTML_TITLE = WebPackSetting.IS_DEBUG_MODE
 const FILE_PARAM = WebPackSetting.DISABLE_CACHE_JS ? "?v=[contenthash]" : "";
 const EXPORT_FILE_NAME_PATTERN = "[name].js" + FILE_PARAM;
 const ALLOW_MINIFY_HTML = !WebPackSetting.IS_DEBUG_MODE;
-const ALLOW_MINIFY_JS = !WebPackSetting.IS_DEBUG_MODE;
+const ALLOW_MINIFY_JS = true; //!WebPackSetting.IS_DEBUG_MODE;
+
+const TerserMinimize = WebPackSetting.IS_DEBUG_MODE
+  ? {}
+  : {
+      //https://github.com/terser/terser?tab=readme-ov-file#compress-options
+      compress: {
+        sequences: false,
+        drop_console: true,
+        booleans_as_integers: true,
+      },
+      ecma: 6,
+      keep_fnames: false,
+      //do not use mangle
+      mangle: {
+        toplevel: true,
+        properties: {
+          // regex: /_$/,//end with _
+          regex: /^[_|z|Z]/, //start with _
+        },
+        keep_fnames: false,
+        keep_classnames: false,
+      },
+    };
+
 /* =======================CONFIGURATION========================== */
 
 const webpack = require("webpack");
@@ -40,6 +63,7 @@ const definePlugin = new webpack.DefinePlugin({
 
 module.exports = {
   // mode: "development",
+  mode: "production",
   // devtool: "inline-source-map",
   devtool: "source-map", //to view js file in chrome
   // モジュールバンドルを行う起点となるファイルの指定
@@ -75,14 +99,15 @@ module.exports = {
       directory: path.join(__dirname, "dist"),
     }, // webpack-dev-serverの公開フォルダ
     open: {
-      app:
-      {
-        name: 'Microsoft Edge' //use edge for run
-      }
+      app: {
+        name: "Microsoft Edge", //use edge for run
+      },
     },
     client: {
       overlay: true,
     },
+    port: 9000,
+    liveReload: true,
   },
 
   // モジュールに適用するルールの設定（ローダーの設定を行う事が多い）
@@ -100,7 +125,12 @@ module.exports = {
 
   optimization: {
     minimize: ALLOW_MINIFY_JS,
-    minimizer: [new TerserPlugin()],
+    minimizer: [
+      new TerserPlugin({
+        // only minify in release mode
+        terserOptions: TerserMinimize,
+      }),
+    ],
     runtimeChunk: "single",
 
     /* Use  splitChunks to move library code in node_modules to vendors.js
@@ -143,9 +173,8 @@ module.exports = {
       chunks: ["index"], //include js from index chunk
       minify: ALLOW_MINIFY_HTML,
       meta: {
-        "theme-color": "#4285f4",// Will generate: <meta name="theme-color" content="#4285f4">
-
-      }
+        "theme-color": "#2D2D2D", // Will generate: <meta name="theme-color" content="#4285f4">
+      },
     }),
     new HtmlWebpackPlugin({
       //テンプレートに使用するhtmlファイルを指定

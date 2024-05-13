@@ -1,1 +1,2 @@
-"use strict";(self.webpackChunkts_basic=self.webpackChunkts_basic||[]).push([[959],{324:(s,a)=>{}},s=>{var a;a=324,s(s.s=a)}]);
+"use strict";(self.webpackChunkts_basic=self.webpackChunkts_basic||[]).push([[959],{324:(s,c)=>{({value:1});void 0;(class{constructor(){}})}},s=>{var c;c=324,s(s.s=c)}]);
+//# sourceMappingURL=abcdefgh.js.map?v=928674268542ad20fed2
