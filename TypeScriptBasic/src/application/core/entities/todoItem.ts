@@ -1,6 +1,6 @@
 import { FUNC_LOG } from "application/utilities/zLog";
 
-export class Todo {
+export class ZTodo {
   _id: string;
   _title: string;
   _description: string;
@@ -23,8 +23,8 @@ export class Todo {
     FUNC_LOG();
 
     // Generate a unique identifier for each Todo instance
-    let val = Todo.globalID;
-    Todo.globalID++;
+    let val = ZTodo.globalID;
+    ZTodo.globalID++;
     return val.toString();
   }
 

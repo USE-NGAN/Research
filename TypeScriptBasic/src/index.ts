@@ -2,13 +2,13 @@ import "./styles/index.scss";
 
 import { FUNC_LOG } from "application/utilities/zLog";
 import { ZTodoViewController } from "application/views/todo/todoViewController";
-import { TodoCompletedViewController } from "application/views/todoCompleted/todoCompletedViewController";
+import { ZTodoCompletedViewController } from "application/views/todoCompleted/todoCompletedViewController";
 
 export class Application {
   static _app = new Application();
 
   _todoVC = new ZTodoViewController();
-  _todoCompletedVC = new TodoCompletedViewController();
+  _todoCompletedVC = new ZTodoCompletedViewController();
 
   constructor() {}
 

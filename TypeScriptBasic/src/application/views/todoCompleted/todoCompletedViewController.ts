@@ -1,12 +1,12 @@
-import { TodoRepo } from "application/core/datas/todoRepo";
+import { ZTodoRepo } from "application/core/datas/todoRepo";
 import { FUNC_LOG } from "application/utilities/zLog";
-import { Todo } from "application/core/entities/todoItem";
-import { TodoCompletedView, TodoCompletedViewIF } from "./todoCompletedView";
+import { ZTodo } from "application/core/entities/todoItem";
+import { ZTodoCompletedView, ZTodoCompletedViewIF } from "./todoCompletedView";
 
-export class TodoCompletedViewController implements TodoCompletedViewIF {
-  _todoRepo = new TodoRepo();
+export class ZTodoCompletedViewController implements ZTodoCompletedViewIF {
+  _todoRepo = new ZTodoRepo();
 
-  _todoView = new TodoCompletedView(this);
+  _todoView = new ZTodoCompletedView(this);
 
   constructor() {}
 
@@ -18,15 +18,15 @@ export class TodoCompletedViewController implements TodoCompletedViewIF {
   }
 
   private _render() {
-    this._todoView._render(this._todoRepo.todoList);
+    this._todoView._render(this._todoRepo._todoList);
   }
 
   // #region TodoView CallBack
-  _requestDelete(todo: Todo): void {
+  _requestDelete(todo: ZTodo): void {
     console.log(`REQUEST DELETE ${todo._title}`);
     this._todoRepo._deleteTodo(todo);
     this._todoView._deleteUIRowForTodo(todo);
   }
-  _requestRemoveCompleted(todo: Todo): void {}
+  _requestRemoveCompleted(todo: ZTodo): void {}
   // #endregion TodoView CallBack
 }

@@ -1,12 +1,12 @@
-import { Todo } from "application/core/entities/todoItem";
+import { ZTodo } from "application/core/entities/todoItem";
 import { FUNC_LOG } from "application/utilities/zLog";
 
-export class TodoCompletedView {
-  private readonly table: JQuery<HTMLElement>;
-  private _delegate: TodoCompletedViewIF;
+export class ZTodoCompletedView {
+  private readonly _table: JQuery<HTMLElement>;
+  private _delegate: ZTodoCompletedViewIF;
 
-  constructor(delegate: TodoCompletedViewIF) {
-    this.table = $("#tblCompleted");
+  constructor(delegate: ZTodoCompletedViewIF) {
+    this._table = $("#tblCompleted");
     this._delegate = delegate;
   }
 
@@ -14,8 +14,8 @@ export class TodoCompletedView {
    * Render all todo item to table
    * @param todoList list of todo item to draw
    */
-  _render(todoList: Todo[]) {
-    const body = this.table.children("tbody");
+  _render(todoList: ZTodo[]) {
+    const body = this._table.children("tbody");
     body.empty();
 
     todoList.forEach((todo) => {
@@ -51,7 +51,7 @@ export class TodoCompletedView {
    * Delete a todo item from reposite and update UI
    * @param todo todo item to delete
    */
-  private _btnDelete_Clicked(todo: Todo) {
+  private _btnDelete_Clicked(todo: ZTodo) {
     FUNC_LOG();
 
     this._delegate._requestDelete(todo);
@@ -64,9 +64,9 @@ export class TodoCompletedView {
    * remove row for a todo
    * @param todo todo item to be removed
    */
-  _deleteUIRowForTodo(todo: Todo) {
+  _deleteUIRowForTodo(todo: ZTodo) {
     const rowID = "#todo-completed-" + todo._id;
-    let row = this.table.find("tbody > " + rowID);
+    let row = this._table.find("tbody > " + rowID);
     if (row) {
       row.remove();
     }
@@ -75,7 +75,7 @@ export class TodoCompletedView {
   // #endregion HELPER
 } // END CLASS TodoCompletedView
 
-export interface TodoCompletedViewIF {
-  _requestDelete(todo: Todo): void;
-  _requestRemoveCompleted(todo: Todo): void;
+export interface ZTodoCompletedViewIF {
+  _requestDelete(todo: ZTodo): void;
+  _requestRemoveCompleted(todo: ZTodo): void;
 }
