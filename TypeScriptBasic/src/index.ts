@@ -1,24 +1,24 @@
 import "./styles/index.scss";
 
 import { FUNC_LOG } from "application/utilities/zLog";
-import { TodoViewController } from "application/views/todo/todoViewController";
+import { ZTodoViewController } from "application/views/todo/todoViewController";
 import { TodoCompletedViewController } from "application/views/todoCompleted/todoCompletedViewController";
 
 export class Application {
-  static app = new Application();
+  static _app = new Application();
 
-  todoVC = new TodoViewController();
-  todoCompletedVC = new TodoCompletedViewController();
+  _todoVC = new ZTodoViewController();
+  _todoCompletedVC = new TodoCompletedViewController();
 
   constructor() {}
 
   //INIT APP
-  initApp() {
+  _initApp() {
     FUNC_LOG();
 
     this._initUIEvent();
-    this.todoVC.viewDidLoaded();
-    this.todoCompletedVC.viewDidLoaded();
+    this._todoVC._viewDidLoaded();
+    this._todoCompletedVC._viewDidLoaded();
   }
 
   private _initUIEvent() {
@@ -51,5 +51,5 @@ $(document).ready(function () {
   console.log("****************APP BEGIN****************");
   console.log("****************VERSION: " + _APP_VERSION_ + "****************");
 
-  Application.app.initApp();
+  Application._app._initApp();
 });

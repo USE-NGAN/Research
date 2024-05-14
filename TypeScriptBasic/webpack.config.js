@@ -43,6 +43,7 @@ const TerserMinimize = WebPackSetting.IS_DEBUG_MODE
       },
       ecma: 6,
       keep_fnames: false,
+      keep_classnames: false,
       //do not use mangle
       mangle: {
         toplevel: true,

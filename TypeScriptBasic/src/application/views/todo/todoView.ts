@@ -21,17 +21,17 @@ export class TodoView {
    * Render all todo item to table
    * @param todoList list of todo item to draw
    */
-  render(todoList: Todo[]) {
+  _render(todoList: Todo[]) {
     const body = this.table.children("tbody");
     body.empty();
 
     todoList.forEach((todo) => {
-      const rowID = "todo-" + todo.id;
+      const rowID = "todo-" + todo._id;
       var newRow = $("<tr>");
       newRow.attr("id", rowID);
-      newRow.attr("todoID", todo.id);
+      newRow.attr("todoID", todo._id);
 
-      newRow.append($("<td>").text(todo.title));
+      newRow.append($("<td>").text(todo._title));
 
       // Add delete button
       const btnDelete = $("<button>")
@@ -62,12 +62,12 @@ export class TodoView {
   private _btnDelete_Clicked(todo: Todo) {
     FUNC_LOG();
 
-    this._delegate.zRequestDelete(todo);
+    this._delegate._requestDelete(todo);
   }
 
   private _btnMarkAsCompleted_Clicked(todo: Todo) {
     FUNC_LOG();
-    this._delegate.zRequestMarkCompleted(todo);
+    this._delegate._requestMarkCompleted(todo);
   }
   // #endregion UI Event
 
@@ -76,8 +76,8 @@ export class TodoView {
    * remove row for a todo
    * @param todo todo item to be removed
    */
-  deleteUIRowForTodo(todo: Todo) {
-    const rowID = "#todo-" + todo.id;
+  _deleteUIRowForTodo(todo: Todo) {
+    const rowID = "#todo-" + todo._id;
     let row = this.table.find("tbody > " + rowID);
     if (row) {
       row.remove();
@@ -87,6 +87,6 @@ export class TodoView {
 }
 
 export interface TodoViewIF {
-  zRequestDelete(todo: Todo): void;
-  zRequestMarkCompleted(todo: Todo): void;
+  _requestDelete(todo: Todo): void;
+  _requestMarkCompleted(todo: Todo): void;
 }

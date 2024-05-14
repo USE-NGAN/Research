@@ -3,35 +3,35 @@ import { TodoView, TodoViewIF } from "./todoView";
 import { FUNC_LOG } from "application/utilities/zLog";
 import { Todo } from "application/core/entities/todoItem";
 
-export class TodoViewController implements TodoViewIF {
-  todoRepo = new TodoRepo();
+export class ZTodoViewController implements TodoViewIF {
+  _todoRepo = new TodoRepo();
 
-  todoView = new TodoView(this);
+  _todoView = new TodoView(this);
 
   constructor() {}
 
-  viewDidLoaded() {
+  _viewDidLoaded() {
     FUNC_LOG();
 
-    this.todoRepo.buildDummyData();
+    this._todoRepo._buildDummyData();
 
-    this.render();
+    this._render();
   }
 
-  render() {
-    this.todoView.render(this.todoRepo.todoList);
+  private _render() {
+    this._todoView._render(this._todoRepo.todoList);
   }
 
   // #region TodoView CallBack
-  zRequestDelete(todo: Todo): void {
-    console.log(`REQUEST DELETE ${todo.title}`);
-    this.todoRepo.deleteTodo(todo);
-    this.todoView.deleteUIRowForTodo(todo);
+  _requestDelete(todo: Todo): void {
+    console.log(`REQUEST DELETE ${todo._title}`);
+    this._todoRepo._deleteTodo(todo);
+    this._todoView._deleteUIRowForTodo(todo);
   }
-  zRequestMarkCompleted(todo: Todo): void {
-    console.log(`REQUEST MARK COMPLETED ${todo.title}`);
-    todo.markAsCompleted();
-    this.todoView.deleteUIRowForTodo(todo);
+  _requestMarkCompleted(todo: Todo): void {
+    console.log(`REQUEST MARK COMPLETED ${todo._title}`);
+    todo._markAsCompleted();
+    this._todoView._deleteUIRowForTodo(todo);
   }
   // #endregion TodoView CallBack
 }

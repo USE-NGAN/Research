@@ -9,7 +9,7 @@ export class TodoRepo {
 
   constructor() {}
 
-  addTodo(title: string, description?: string): Todo {
+  _addTodo(title: string, description?: string): Todo {
     FUNC_LOG();
 
     const todo = new Todo(title, description);
@@ -19,7 +19,7 @@ export class TodoRepo {
     return todo;
   }
 
-  buildDummyData() {
+  _buildDummyData() {
     FUNC_LOG();
 
     for (let i = 0; i < 10; i++) {
@@ -27,25 +27,25 @@ export class TodoRepo {
       this.todoList.push(todo);
     }
   }
-  buildDummyDataCompleted() {
+  _buildDummyDataCompleted() {
     FUNC_LOG();
 
     for (let i = 20; i < 30; i++) {
       let todo = new Todo("Task " + i, "Desc Task " + i);
-      todo.markAsCompleted();
+      todo._markAsCompleted();
       this.todoList.push(todo);
     }
   }
 
-  printTodo() {
+  _printTodo() {
     FUNC_LOG();
     for (let index = 0; index < this.todoList.length; index++) {
       const element = this.todoList[index];
-      console.log(element.toString());
+      console.log(element._toString());
     }
   }
 
-  deleteTodo(todo: Todo) {
+  _deleteTodo(todo: Todo) {
     const idx = this.todoList.indexOf(todo);
     if (idx !== -1) {
       this.todoList.splice(idx, 1);

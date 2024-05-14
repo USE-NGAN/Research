@@ -4,29 +4,29 @@ import { Todo } from "application/core/entities/todoItem";
 import { TodoCompletedView, TodoCompletedViewIF } from "./todoCompletedView";
 
 export class TodoCompletedViewController implements TodoCompletedViewIF {
-  todoRepo = new TodoRepo();
+  _todoRepo = new TodoRepo();
 
-  todoView = new TodoCompletedView(this);
+  _todoView = new TodoCompletedView(this);
 
   constructor() {}
 
-  viewDidLoaded() {
+  _viewDidLoaded() {
     FUNC_LOG();
 
-    this.todoRepo.buildDummyDataCompleted();
-    this.render();
+    this._todoRepo._buildDummyDataCompleted();
+    this._render();
   }
 
-  render() {
-    this.todoView.render(this.todoRepo.todoList);
+  private _render() {
+    this._todoView._render(this._todoRepo.todoList);
   }
 
   // #region TodoView CallBack
-  requestDelete(todo: Todo): void {
-    console.log(`REQUEST DELETE ${todo.title}`);
-    this.todoRepo.deleteTodo(todo);
-    this.todoView.deleteUIRowForTodo(todo);
+  _requestDelete(todo: Todo): void {
+    console.log(`REQUEST DELETE ${todo._title}`);
+    this._todoRepo._deleteTodo(todo);
+    this._todoView._deleteUIRowForTodo(todo);
   }
-  requestRemoveCompleted(todo: Todo): void {}
+  _requestRemoveCompleted(todo: Todo): void {}
   // #endregion TodoView CallBack
 }
