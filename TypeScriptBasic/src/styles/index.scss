@@ -1,4 +1,6 @@
-$primary-color: #18c7a9;
+@import "./custom";
+
+$primary-color: #c51025;
 
 body {
   background-color: $primary-color;

@@ -1,3 +1,5 @@
+import "./styles/index.scss";
+
 import { FUNC_LOG } from "application/utilities/zLog";
 import { TodoViewController } from "application/views/todo/todoViewController";
 import { TodoCompletedViewController } from "application/views/todoCompleted/todoCompletedViewController";

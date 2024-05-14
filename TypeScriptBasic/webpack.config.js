@@ -1,8 +1,11 @@
 const path = require("path");
 
 /* =======================DEV PLUGINS========================== */
-const TerserPlugin = require("terser-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin"); //minify js
 const HtmlWebpackPlugin = require("html-webpack-plugin"); //for copy index.html to OUTPUT_PATH
+const MiniCssExtractPlugin = require("mini-css-extract-plugin"); //merge scss to 1 css, minify css,
+const CopyPlugin = require("copy-webpack-plugin"); //copy asset folder to dist
+
 /* =======================DEV PLUGINS========================== */
 
 /* =======================CONFIGURATION========================== */
@@ -45,7 +48,7 @@ const TerserMinimize = WebPackSetting.IS_DEBUG_MODE
         toplevel: true,
         properties: {
           // regex: /_$/,//end with _
-          regex: /^[_|z|Z]/, //start with _
+          regex: /^[_|z|Z]/, //start with _ or z or Z
         },
         keep_fnames: false,
         keep_classnames: false,
@@ -120,6 +123,26 @@ module.exports = {
         loader: "ts-loader",
         exclude: /node_modules/,
       },
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
+      },
+      // {
+      //   test: /\.s[ac]ss$/i,
+      //   use: [
+      //     // Creates `style` nodes from JS strings
+      //     "style-loader",
+      //     // Translates CSS into CommonJS
+      //     "css-loader",
+      //     // Compiles Sass to CSS
+      //     "sass-loader",
+      //   ],
+      // },
     ],
   },
 
@@ -164,6 +187,9 @@ module.exports = {
     //for view what is inside a bundle
     // new BundleAnalyzerPlugin({analyzerMode: 'static'}),
 
+    new MiniCssExtractPlugin({
+      filename: "styles/style.css", //merge all scss to 1 file and move them to dist/styles/slyle.css
+    }),
     //https://github.com/jantimon/html-webpack-plugin#options
     new HtmlWebpackPlugin({
       //テンプレートに使用するhtmlファイルを指定
@@ -183,6 +209,9 @@ module.exports = {
       filename: "pages/abc_newName.html",
       chunks: ["abcdefgh"], //include js from abcdefgh chunk
       minify: ALLOW_MINIFY_HTML,
+    }),
+    new CopyPlugin({
+      patterns: [{ from: "src/assets", to: "assets" }],
     }),
     definePlugin,
   ],
