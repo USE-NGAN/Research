@@ -30,7 +30,7 @@ const HTML_TITLE = WebPackSetting.IS_DEBUG_MODE
 const FILE_PARAM = WebPackSetting.DISABLE_CACHE_JS ? "?v=[contenthash]" : "";
 const EXPORT_FILE_NAME_PATTERN = "[name].js" + FILE_PARAM;
 const ALLOW_MINIFY_HTML = !WebPackSetting.IS_DEBUG_MODE;
-const ALLOW_MINIFY_JS = true; //!WebPackSetting.IS_DEBUG_MODE;
+const ALLOW_MINIFY_JS = !WebPackSetting.IS_DEBUG_MODE;
 
 const TerserMinimize = WebPackSetting.IS_DEBUG_MODE
   ? {}
@@ -104,7 +104,8 @@ module.exports = {
     }, // webpack-dev-serverの公開フォルダ
     open: {
       app: {
-        name: "Microsoft Edge", //use edge for run
+        // name: "Microsoft Edge", //use edge for run
+        name: "Google Chrome",
       },
     },
     client: {
@@ -133,17 +134,6 @@ module.exports = {
           "sass-loader",
         ],
       },
-      // {
-      //   test: /\.s[ac]ss$/i,
-      //   use: [
-      //     // Creates `style` nodes from JS strings
-      //     "style-loader",
-      //     // Translates CSS into CommonJS
-      //     "css-loader",
-      //     // Compiles Sass to CSS
-      //     "sass-loader",
-      //   ],
-      // },
     ],
   },
 

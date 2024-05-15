@@ -20,7 +20,7 @@ export class ZTodo {
   }
 
   _generateId(): string {
-    FUNC_LOG();
+    // FUNC_LOG();
 
     // Generate a unique identifier for each Todo instance
     let val = ZTodo.globalID;
