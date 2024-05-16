@@ -19,7 +19,7 @@ export class ZMidiManager {
 
   delegate: ZMidiManagerIF;
 
-  public async startMidi() {
+  public async startMidi(): Promise<boolean> {
     LOG(this.TAG, "start MIDI");
 
     // 1. PERMISSION?
@@ -29,16 +29,60 @@ export class ZMidiManager {
 
     if (permission.state === "denied") {
       LOG(this.TAG, "NO PERMISSION MIDI");
-      return;
+      return false;
     }
 
     // 2. MIDI ACCESS
-    navigator.requestMIDIAccess().then((access) => {
-      LOG(this.TAG, "MIDI ACCESS OK. NUM OF DEV=" + access.inputs.size);
+    let access = await navigator.requestMIDIAccess();
+    LOG(this.TAG, "MIDI ACCESS OK. NUM OF DEV=" + access.inputs.size);
 
-      access.addEventListener("statechange", (event) => {
-        this._onMidiPortChanged(event);
-      });
+    access.addEventListener("statechange", (event) => {
+      this._onMidiPortChanged(event);
+    });
+    return true;
+  }
+
+  public async abcd() {
+    // const permission = await navigator.permissions.query({
+    //   name: "midi" as PermissionName,
+    // });
+
+    const me = this;
+
+    return new Promise(function (resolve, reject) {
+      // if (permission.state === "denied") {
+      //   // LOG(this.TAG, "NO PERMISSION MIDI");
+      //   reject(false);
+      //   return;
+      // }
+      navigator.permissions
+        .query({
+          name: "midi" as PermissionName,
+        })
+        .then((permission) => {
+          if (permission.state === "denied") {
+            reject("NO PERMISSION MIDI");
+            return;
+          }
+
+          navigator
+            .requestMIDIAccess()
+            .then((access) => () => {
+              LOG(me.TAG, "MIDI ACCESS OK. NUM OF DEV=" + access.inputs.size);
+
+              access.addEventListener("statechange", (event) => {
+                me._onMidiPortChanged(event);
+              });
+
+              resolve("MIDI OKOKOKOKOKOKO");
+            })
+            .catch(() => {
+              reject("NO MIDI ACCESSS");
+            });
+        })
+        .catch(() => {
+          reject("FAIL MIDI PERMISSION");
+        });
     });
   }
 
@@ -102,12 +146,15 @@ export class ZMidiManager {
       return;
     }
 
+    console.group("MIDI CONNECTION SEQUENCE");
     this.changeConnectionState(ZMidiManagerState.CONNECTING);
 
     setTimeout(() => {
       if (this._connectionState === ZMidiManagerState.CONNECTING) {
         this.changeConnectionState(ZMidiManagerState.CONNNECTED);
       }
+
+      console.groupEnd();
     }, 3000);
   }
 

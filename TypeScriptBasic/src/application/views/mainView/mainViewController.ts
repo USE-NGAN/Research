@@ -14,6 +14,7 @@ export class ZMainViewController implements ZMidiManagerIF {
     this._midi = new ZMidiManager(this);
   }
 
+  // #region ENTRY POINT
   _viewDidLoaded() {
     FUNC_LOG();
 
@@ -21,9 +22,33 @@ export class ZMainViewController implements ZMidiManagerIF {
     this._todoVC._viewDidLoaded();
     this._todoCompletedVC._viewDidLoaded();
 
-    this._midi.startMidi();
-  }
+    console.log("AAAAAA");
 
+    this._midi.startMidi().then((result) => {
+      if (result) {
+        console.log("startMidi OK");
+      } else {
+        console.log("startMidi FAILED MISERABLE");
+      }
+    });
+    console.log("BBBBB");
+  }
+  // #endregion ENTRY POINT
+
+  // #region UI INIT
+  private _initUIEvent() {
+    //use () => { due to scope of "this"
+    $("#btnTest").on("click", () => {
+      this._onBtnTest_Clicked();
+    });
+  }
+  // #endregion UI INIT
+
+  // #region MIDIManager Callback
+  /**
+   * When detect ZOMM MIDI device, this callback will called
+   * @param midiManager The Midi Manager
+   */
   onConnectionChanged(midiManager: ZMidiManager): void {
     FUNC_LOG();
 
@@ -31,15 +56,9 @@ export class ZMainViewController implements ZMidiManagerIF {
       midiManager._startConnect();
     }
   }
+  // #endregion MIDIManager Callback
 
-  private _initUIEvent() {
-    //use () => { due to scope of "this"
-    $("#btnTest").on("click", () => {
-      this._onBtnTest_Clicked();
-    });
-  }
-
-  //UI EVENT
+  // #region UI EVENT
   private _onBtnTest_Clicked() {
     console.log("BTN CLICKED");
 
@@ -51,4 +70,5 @@ export class ZMainViewController implements ZMidiManagerIF {
       }
     }
   }
+  // #endregion UI EVENT
 }
