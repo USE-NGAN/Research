@@ -19,27 +19,29 @@ export class ZMidiManager {
 
   delegate: ZMidiManagerIF;
 
-  public async startMidi(): Promise<boolean> {
+  public async startMidi(): Promise<"denied" | "prompt" | "granted"> {
     LOG(this.TAG, "start MIDI");
 
     // 1. PERMISSION?
-    const permission = await navigator.permissions.query({
+    let permission = await navigator.permissions.query({
       name: "midi" as PermissionName,
     });
 
+    //failed safe if condition
     if (permission.state === "denied") {
       LOG(this.TAG, "NO PERMISSION MIDI");
-      return false;
+      // return Promise.reject("denied");
+      throw new Error("denied");
     }
 
     // 2. MIDI ACCESS
-    let access = await navigator.requestMIDIAccess();
+    let access = await navigator.requestMIDIAccess(); //if not allow midi, below code WILL NOT run
     LOG(this.TAG, "MIDI ACCESS OK. NUM OF DEV=" + access.inputs.size);
 
     access.addEventListener("statechange", (event) => {
       this._onMidiPortChanged(event);
     });
-    return true;
+    return "granted";
   }
 
   public async abcd() {

@@ -24,13 +24,32 @@ export class ZMainViewController implements ZMidiManagerIF {
 
     console.log("AAAAAA");
 
-    this._midi.startMidi().then((result) => {
-      if (result) {
-        console.log("startMidi OK");
-      } else {
-        console.log("startMidi FAILED MISERABLE");
-      }
-    });
+    this._midi
+      .startMidi()
+      .then((result) => {
+        // if (result === "granted") {
+        //   console.log("startMidi OK");
+        // } else {
+        //   console.log("startMidi FAILED MISERABLE");
+        // }
+        switch (result) {
+          case "denied":
+            console.log("startMidi FAILED MISERABLE");
+            break;
+          case "prompt":
+            console.log("startMidi WAIT FOR PERMISSION");
+            break;
+          case "granted":
+            console.log("startMidi OK");
+            break;
+
+          default:
+            break;
+        }
+      })
+      .catch(() => {
+        console.log("startMidi FAILED MISERABLE22222");
+      });
     console.log("BBBBB");
   }
   // #endregion ENTRY POINT

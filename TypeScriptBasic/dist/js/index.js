@@ -159,20 +159,22 @@ class ZMidiManager {
         return __awaiter(this, void 0, void 0, function* () {
             (0, zLog_1.LOG)(this.TAG, "start MIDI");
             // 1. PERMISSION?
-            const permission = yield navigator.permissions.query({
+            let permission = yield navigator.permissions.query({
                 name: "midi",
             });
+            //failed safe if condition
             if (permission.state === "denied") {
                 (0, zLog_1.LOG)(this.TAG, "NO PERMISSION MIDI");
-                return false;
+                // return Promise.reject("denied");
+                throw new Error("denied");
             }
             // 2. MIDI ACCESS
-            let access = yield navigator.requestMIDIAccess();
+            let access = yield navigator.requestMIDIAccess(); //if not allow midi, below code WILL NOT run
             (0, zLog_1.LOG)(this.TAG, "MIDI ACCESS OK. NUM OF DEV=" + access.inputs.size);
             access.addEventListener("statechange", (event) => {
                 this._onMidiPortChanged(event);
             });
-            return true;
+            return "granted";
         });
     }
     abcd() {
@@ -373,13 +375,30 @@ class ZMainViewController {
         this._todoVC._viewDidLoaded();
         this._todoCompletedVC._viewDidLoaded();
         console.log("AAAAAA");
-        this._midi.startMidi().then((result) => {
-            if (result) {
-                console.log("startMidi OK");
+        this._midi
+            .startMidi()
+            .then((result) => {
+            // if (result === "granted") {
+            //   console.log("startMidi OK");
+            // } else {
+            //   console.log("startMidi FAILED MISERABLE");
+            // }
+            switch (result) {
+                case "denied":
+                    console.log("startMidi FAILED MISERABLE");
+                    break;
+                case "prompt":
+                    console.log("startMidi WAIT FOR PERMISSION");
+                    break;
+                case "granted":
+                    console.log("startMidi OK");
+                    break;
+                default:
+                    break;
             }
-            else {
-                console.log("startMidi FAILED MISERABLE");
-            }
+        })
+            .catch(() => {
+            console.log("startMidi FAILED MISERABLE22222");
         });
         console.log("BBBBB");
     }
@@ -668,4 +687,4 @@ $(document).ready(function () {
 /******/ var __webpack_exports__ = (__webpack_exec__(156));
 /******/ }
 ]);
-//# sourceMappingURL=index.js.map?v=c9468fc736a74b73f730
+//# sourceMappingURL=index.js.map?v=8da103dd4aa1c8fad904
