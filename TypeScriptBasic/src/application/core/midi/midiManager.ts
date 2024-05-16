@@ -27,7 +27,6 @@ export class ZMidiManager {
       name: "midi" as PermissionName,
     });
 
-    //failed safe if condition
     if (permission.state === "denied") {
       LOG(this.TAG, "NO PERMISSION MIDI");
       // return Promise.reject("denied");

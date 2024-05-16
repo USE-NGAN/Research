@@ -162,7 +162,6 @@ class ZMidiManager {
             let permission = yield navigator.permissions.query({
                 name: "midi",
             });
-            //failed safe if condition
             if (permission.state === "denied") {
                 (0, zLog_1.LOG)(this.TAG, "NO PERMISSION MIDI");
                 // return Promise.reject("denied");
@@ -687,4 +686,4 @@ $(document).ready(function () {
 /******/ var __webpack_exports__ = (__webpack_exec__(156));
 /******/ }
 ]);
-//# sourceMappingURL=index.js.map?v=8da103dd4aa1c8fad904
+//# sourceMappingURL=index.js.map?v=0ebff9143fad6a1f1214
